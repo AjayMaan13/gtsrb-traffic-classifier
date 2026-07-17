@@ -20,10 +20,6 @@ from road_sign_vision.config import (
 
 logger = logging.getLogger(__name__)
 
-# Rescale pixel values from [0, 255] to [0, 1] so the network trains on small,
-# consistently-scaled inputs instead of raw 8-bit pixel values.
-normalization_layer = tf.keras.layers.Rescaling(1.0 / 255)
-
 
 def _log_class_counts(data_dir):
     """Log how many images are in each category folder, surfacing class imbalance."""
@@ -107,10 +103,11 @@ def get_datasets(data_dir=DATA_DIR):
     val_ds = val_test_ds.take(val_batches // 2)
     test_ds = val_test_ds.skip(val_batches // 2)
 
-    # NORMALIZATION: map the [0, 255] -> [0, 1] rescale over every dataset.
-    train_ds = train_ds.map(lambda x, y: (normalization_layer(x), y))
-    val_ds = val_ds.map(lambda x, y: (normalization_layer(x), y))
-    test_ds = test_ds.map(lambda x, y: (normalization_layer(x), y))
+    # NORMALIZATION: NOT done here anymore as of Phase 4. Different model
+    # architectures need different pixel scaling (plain /255 for the baseline
+    # and deep CNNs, MobileNetV2's own preprocess_input for transfer learning),
+    # so each model in model.py now owns its own preprocessing as its first
+    # layer(s). These datasets stay in raw [0, 255] so any model can use them.
 
     # PREFETCHING: let TensorFlow load/decode the next batch on the CPU while
     # the current batch is still training, instead of the model sitting idle
@@ -139,7 +136,8 @@ def save_sample_grid(dataset, class_names, out_path=None):
     plt.figure(figsize=(10, 10))
     for i in range(min(9, images.shape[0])):
         plt.subplot(3, 3, i + 1)
-        plt.imshow(images[i].numpy())
+        # Images are raw [0, 255] now (see get_datasets) — scale for display.
+        plt.imshow(images[i].numpy().astype("uint8"))
         label_index = tf.argmax(labels[i]).numpy()
         plt.title(class_names[label_index])
         plt.axis("off")
