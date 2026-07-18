@@ -84,14 +84,22 @@ def get_datasets(data_dir=DATA_DIR):
     class_names = train_ds.class_names
 
     # The remaining VAL_SPLIT fraction, not yet divided into val/test.
-    # shuffle=False: validation/test order stays fixed and reproducible run
-    # to run, unlike training data.
+    #
+    # shuffle=True here too (not False): image_dataset_from_directory's
+    # `shuffle` flag controls two things at once — whether the returned
+    # dataset is shuffled, AND whether the file list is randomized *before*
+    # validation_split slices it into training vs. validation. With
+    # shuffle=False, Keras just takes the last VAL_SPLIT fraction of the raw,
+    # alphabetically-class-ordered file list — which can land entirely inside
+    # a handful of categories instead of sampling across all of them. Using
+    # the same SEED on both calls already makes the split reproducible, so
+    # nothing is lost by shuffling here too, and the bug is avoided.
     val_test_ds = tf.keras.utils.image_dataset_from_directory(
         data_dir,
         validation_split=VAL_SPLIT,
         subset="validation",
         seed=SEED,
-        shuffle=False,
+        shuffle=True,
         image_size=(IMG_HEIGHT, IMG_WIDTH),
         batch_size=BATCH_SIZE,
         label_mode="categorical",
