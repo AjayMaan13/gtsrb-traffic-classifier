@@ -2,7 +2,8 @@
 
 A traffic-sign image classifier (GTSRB, 43 categories), rebuilt from a CS50AI course exercise into a full, 12-factor-compliant deep learning project — configurable via environment variables, three compared architectures, full evaluation, Grad-CAM explainability, and a live demo app.
 
-**Live demo:** [huggingface.co/spaces/AjayMaan13/road-sign-vision](https://huggingface.co/spaces/AjayMaan13/road-sign-vision) &nbsp;·&nbsp; **Stack:** Python · TensorFlow / Keras · scikit-learn · Gradio · Hugging Face Spaces
+**Live demo:** [huggingface.co/spaces/AjayMaan13/road-sign-vision](https://huggingface.co/spaces/AjayMaan13/road-sign-vision) &nbsp;·&nbsp; 
+**Stack:** Python · TensorFlow / Keras · scikit-learn · Gradio · Hugging Face Spaces
 
 Upload a photo of a traffic sign → get back a predicted category, a confidence score, and a Grad-CAM heatmap showing which part of the image the model actually looked at when deciding.
 
