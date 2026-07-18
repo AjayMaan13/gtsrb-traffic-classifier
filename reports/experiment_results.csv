@@ -1,2 +1,2 @@
 model,params,val_accuracy,test_accuracy,train_seconds,notes
-baseline,809387,0.9945,0.9697,123.0,control
+baseline,809387,0.9908,0.9717,135.1,control
