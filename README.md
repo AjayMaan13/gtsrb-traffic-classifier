@@ -125,3 +125,7 @@ The original model architecture started as a CS50AI ("Introduction to Artificial
 
 - **Dataset:** [German Traffic Sign Recognition Benchmark (GTSRB)](https://benchmark.ini.rub.de/gtsrb_news.html), J. Stallkamp et al. Used for research/educational purposes.
 - **Starting point:** [CS50's Introduction to Artificial Intelligence with Python](https://cs50.harvard.edu/ai/) (the `traffic` project).
+
+## License
+
+[MIT](LICENSE)
