@@ -24,3 +24,7 @@ FINE_TUNE = os.environ.get("FINE_TUNE", "false").lower() == "true"
 PATIENCE = int(os.environ.get("PATIENCE", 5))
 TRANSFER_IMG_SIZE = int(os.environ.get("TRANSFER_IMG_SIZE", 96))
 RESULTS_CSV = os.environ.get("RESULTS_CSV", "reports/experiment_results.csv")
+
+# Phase 7 — serving
+CLASS_NAMES_PATH = os.environ.get("CLASS_NAMES_PATH", "app/class_names.json")
+PORT = int(os.environ.get("PORT", 7860))

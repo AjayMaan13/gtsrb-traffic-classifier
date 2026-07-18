@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "road-sign-vision-app",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd \"/Users/goraya/AJ/Github OOS/gtsrb-traffic-classifier\" && source venv/bin/activate && python app/app.py"],
+      "port": 7860
+    }
+  ]
+}

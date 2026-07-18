@@ -1,3 +1,5 @@
 model,params,val_accuracy,test_accuracy,train_seconds,notes
 baseline,809387,0.9908,0.9717,135.1,control
 baseline,809387,0.9572,0.9579,150.5,control
+deep,401387,0.9912,0.9917,240.1,augment=True
+transfer,2427499,0.9457,0.9424,659.8,fine_tune=False

@@ -1,4 +1,5 @@
 import csv
+import json
 import logging
 import os
 import time
@@ -7,6 +8,7 @@ import tensorflow as tf
 
 from road_sign_vision.config import (
     AUGMENT,
+    CLASS_NAMES_PATH,
     DATA_DIR,
     EPOCHS,
     EXPERIMENT,
@@ -64,6 +66,14 @@ def log_results(model_name, params, val_accuracy, test_accuracy, train_seconds, 
 def main():
     logger.info("Building datasets from %s", DATA_DIR)
     train_ds, val_ds, test_ds, class_names = get_datasets(DATA_DIR)
+
+    # The serving app (Phase 7) needs to map a prediction index back to a
+    # category name without shipping the whole dataset, so persist the
+    # mapping once here, next to the model artifact.
+    os.makedirs(os.path.dirname(CLASS_NAMES_PATH), exist_ok=True)
+    with open(CLASS_NAMES_PATH, "w") as f:
+        json.dump(class_names, f)
+    logger.info("Class names saved to %s", CLASS_NAMES_PATH)
 
     save_sample_grid(train_ds, class_names)
 
