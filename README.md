@@ -40,6 +40,23 @@ Full evaluation artifacts (confusion matrix, per-class precision/recall/F1, misc
 - **Serving app** (`app/app.py`) — a stateless Gradio app that loads the saved model once and serves predictions + Grad-CAM overlays; built to run identically locally and on Hugging Face Spaces.
 - **12-factor discipline throughout** — all config from environment variables (`.env.example`), structured logging to stdout, training (build) and serving (run) kept strictly separate, pinned dependencies.
 
+## Model architectures
+
+Every layer with its input→output shapes, generated with Keras `plot_model`. For an interactive version, drop any `models/*.keras` file into [netron.app](https://netron.app).
+
+<table>
+<tr>
+<td align="center"><b>Baseline CNN</b><br>809K params · control</td>
+<td align="center"><b>Deep CNN + augmentation</b><br>401K params · best result</td>
+</tr>
+<tr>
+<td valign="top"><img src="reports/architectures/baseline.png" width="300" alt="Baseline CNN architecture"></td>
+<td valign="top"><img src="reports/architectures/deep.png" width="300" alt="Deep CNN architecture"></td>
+</tr>
+</table>
+
+The transfer-learning model wraps a pretrained MobileNetV2 base — see [`reports/architectures/transfer.png`](reports/architectures/transfer.png).
+
 ## How to run
 
 ```bash
